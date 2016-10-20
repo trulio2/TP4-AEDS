@@ -242,186 +242,6 @@ int secundaria(char matriz[][tamanho], int tam, char *vetor){
     return 1;
 }
 
-void resolver(char matriz[][tamanho],char depression[][20],int tam){
-	int i,j,k=0,l,quarenta=39,tamanho_palavra;
-	for(i=0;i<tam;i++){
-		for(j=0;j<tam;j++){
-			quarenta=39;
-			while(quarenta>=0){
-				if(matriz[i][j]==depression[quarenta][0]||matriz[i][j]==depression[quarenta][0]-32){
-					for(tamanho_palavra=0;depression[quarenta][tamanho_palavra]!=' ';tamanho_palavra++){}
-					int tamanho=tamanho_palavra;
-					if(j+tamanho<=tam){
-							if(matriz[i][j+1]==depression[quarenta][1]||matriz[i][j+1]==depression[quarenta][1]-32){
-								for(l=0;l<tamanho;l++){
-									if(matriz[i][j+l]==depression[quarenta][l]||(matriz[i][j+l]+32)==depression[quarenta][l]){
-										tamanho_palavra--;
-									}
-									else
-										break;
-							}
-							if(tamanho_palavra==0){
-								for (l = 0; l < tamanho; l++){
-									if(matriz[i][l+j]>95)
-										matriz[i][l+j]-=32;
-								}
-							}
-						}
-					}
-					if(j-(tamanho-1)>=0){
-						tamanho_palavra=tamanho;
-						if(matriz[i][j-1]==depression[quarenta][1]||matriz[i][j-1]==depression[quarenta][1]-32){
-								for(l=0;l<tamanho;l++){
-								
-									if(matriz[i][j-l]==depression[quarenta][l]||matriz[i][j-l]==depression[quarenta][l]-32){
-										tamanho_palavra--;
-									}
-									else
-										break;
-									
-							}
-							if(tamanho_palavra==0){
-								for (l = 0; l <tamanho; l++){
-									if(matriz[i][j-l]>95)
-										matriz[i][j-l]-=32;
-								}
-							}	
-						}
-
-					}
-					
-					if(i+tamanho<=tam){
-						tamanho_palavra=tamanho;
-						if(matriz[i+1][j]==depression[quarenta][1]||matriz[i+1][j]==depression[quarenta][1]-32){
-								for(l=0;l<tamanho;l++){
-								
-									if(matriz[i+l][j]==depression[quarenta][l]||matriz[i+l][j]==depression[quarenta][l]-32){
-										tamanho_palavra--;
-									}
-									else
-										break;
-							}
-							if(tamanho_palavra==0){
-								for (l = 0; l < tamanho; l++){
-									if(matriz[i+l][j]>95)
-										matriz[i+l][j]-=32;
-								}
-							}	
-						}
-
-					}
-					
-					if(i-(tamanho-1)>=0){
-						tamanho_palavra=tamanho;
-						if(matriz[i-1][j]==depression[quarenta][1]||matriz[i-1][j]==depression[quarenta][1]-32){
-								for(l=0;l<tamanho;l++){
-								
-									if(matriz[i-l][j]==depression[quarenta][l]||matriz[i-l][j]==depression[quarenta][l]-32){
-										tamanho_palavra--;
-									}
-									else
-										break;
-							}
-							if(tamanho_palavra==0){
-								for (l = 0; l < tamanho; l++){
-									if(matriz[i-l][j]>95)
-										matriz[i-l][j]-=32;
-								}
-							}	
-						}
-
-					}
-
-					if(j+tamanho<=tam&&i+tamanho<=tam){
-						tamanho_palavra=tamanho;
-						if(matriz[i+1][j+1]==depression[quarenta][1]||(matriz[i+1][j+1]+32)==depression[quarenta][1]){
-								for(l=0;l<tamanho;l++){
-									if(matriz[i+l][j+l]==depression[quarenta][l]||(matriz[i+l][j+l]+32)==depression[quarenta][l]){
-										tamanho_palavra--;
-									}
-									else
-										break;
-							}
-							if(tamanho_palavra==0){
-								for (l = 0; l < tamanho; l++){
-									if(matriz[i+l][l+j]>95)
-										matriz[i+l][l+j]-=32;
-								}
-							}
-						}
-
-					}
-
-					if(j-(tamanho-1)>=0&&i-(tamanho-1)>=0){
-						tamanho_palavra=tamanho;
-						if(matriz[i-1][j-1]==depression[quarenta][1]||(matriz[i-1][j-1]+32)==depression[quarenta][1]){
-								for(l=0;l<tamanho;l++){
-									if(matriz[i-l][j-l]==depression[quarenta][l]||(matriz[i-l][j-l]+32)==depression[quarenta][l]){
-										tamanho_palavra--;
-									}
-									else
-										break;
-							}
-							if(tamanho_palavra==0){
-								for (l = 0; l < tamanho; l++){
-									if(matriz[i-l][j-l]>95)
-										matriz[i-l][j-l]-=32;
-								}
-							}
-						}
-
-					}
-
-					if(j+tamanho<=tam&&i-(tamanho-1)>=0){
-						tamanho_palavra=tamanho;
-						if(matriz[i-1][j+1]==depression[quarenta][1]||(matriz[i-1][j+1]+32)==depression[quarenta][1]){
-								for(l=0;l<tamanho;l++){
-									if(matriz[i-l][j+l]==depression[quarenta][l]||(matriz[i-l][j+l]+32)==depression[quarenta][l]){
-										tamanho_palavra--;
-									}
-									else
-										break;
-							}
-							if(tamanho_palavra==0){
-								for (l = 0; l < tamanho; l++){
-									if(matriz[i-l][j+l]>95)
-										matriz[i-l][j+l]-=32;
-								}
-							}
-						}
-
-					}
-					
-					if(j-(tamanho-1)>=0&&i+tamanho<=tam){
-						tamanho_palavra=tamanho;
-						if(matriz[i+1][j-1]==depression[quarenta][1]||(matriz[i+1][j-1]+32)==depression[quarenta][1]){
-								for(l=0;l<tamanho;l++){
-									if(matriz[i+l][j-l]==depression[quarenta][l]||(matriz[i+l][j-l]+32)==depression[quarenta][l]){
-										tamanho_palavra--;
-									}
-									else
-										break;
-							}
-							if(tamanho_palavra==0){
-								for (l = 0; l < tamanho; l++){
-									if(matriz[i+l][j-l]>95)
-										matriz[i+l][j-l]-=32;
-								}
-							}
-						}
-
-					}
-				}
-				quarenta--;
-			}
-		}
-	}
-	for(i=0;i<tam;i++){
-		for(j=0;j<tam;j++){
-			if(matriz[i][j]>90) matriz[i][j]='-';
-		}
-	}
-}
 
 void principal(int tam, char depression[40][20]){
     int i,j,z=0,teste;
@@ -449,11 +269,7 @@ void principal(int tam, char depression[40][20]){
      	n++;
      	z++;
      }
-     else {
-     	getchar();
-     	getchar();
-     	numero_palavra+=1;
-     }
+     else numero_palavra+=1;
 
     }
     imprime2(matriz,tam);
@@ -465,8 +281,15 @@ void principal(int tam, char depression[40][20]){
       }
     }
     imprime2(matriz,tam);
-    resolver(matriz,depression,tam);
-    imprime2(matriz,tam);	
+    FILE* cp=fopen("caça-palavras.txt","w");
+    for(i=0;i<tam;i++){
+    	for(j=0;j<tam;j++){
+    		fprintf(cp,"%c",matriz[i][j]);
+    	}
+    	fprintf(cp,"\n");
+    }
+    
+    
 }
 int main(int idx){
   srand48(time(0));
@@ -494,7 +317,7 @@ int main(int idx){
   FILE *arquivo;
   
   char depression[40][20];
-  while(1){
+  
   	if(op=='1'){
     arquivo = fopen("fruits.txt","r");
   }
@@ -517,9 +340,8 @@ int main(int idx){
       break;
     }
     tamanho=40;
-    //imprime(depression);
     principal(tam,depression);
     fclose(arquivo);
-}
+
   return 0;
 }
