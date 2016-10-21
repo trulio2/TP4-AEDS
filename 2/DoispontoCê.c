@@ -50,7 +50,7 @@ int main(){
 	int op,i,n;
 	char opcao;
 	double tempo;
-	int *vetor;
+	int *vetor,*aux1,*aux2;
 	do{
 		do{
 			system("clear");
@@ -69,22 +69,32 @@ int main(){
 			case 1:
 				n = 10000;
 				vetor=(int *)malloc(n * sizeof(int));
+				aux2=(int *)malloc(n * sizeof(int));
+				aux1=(int *)malloc(n * sizeof(int));
 				break;
 			case 2:
 				n = 20000;
 				vetor=(int *)malloc(n * sizeof(int));
+				aux2=(int *)malloc(n * sizeof(int));
+				aux1=(int *)malloc(n * sizeof(int));
 				break;
 			case 3:
 				n = 40000;
 				vetor=(int *)malloc(n * sizeof(int));
+				aux2=(int *)malloc(n * sizeof(int));
+				aux1=(int *)malloc(n * sizeof(int));
 				break;
 			case 4: 
 				n = 80000;
 				vetor=(int *)malloc(n * sizeof(int));
+				aux1=(int *)malloc(n * sizeof(int));
+				aux2=(int *)malloc(n * sizeof(int));
 				break;
 			case 5:
 				n = 160000;
 				vetor=(int *)malloc(n * sizeof(int));
+				aux1=(int *)malloc(n * sizeof(int));
+				aux2=(int *)malloc(n * sizeof(int));
 				break;
 			case 0:
 				break;
@@ -93,8 +103,11 @@ int main(){
 		}
 		if(op!=0){
 			for(i = 0; i < n ; i++){
-				vetor[i]=drand48()*1000;
+				vetor[i]=drand48()*10000;
+				aux1[i]=vetor[i];
+				aux2[i]=vetor[i];
 			}
+			
 			i=5;
 			tempo=0;
 			while(i>0){
@@ -110,7 +123,7 @@ int main(){
 			tempo=0;
 			while(i>0){
 				t1=clock();
-				SelecaoDireta(vetor,n);
+				SelecaoDireta(aux1,n);
 				t2=clock();
 				tempo+=((double)t2 - (double)t1)/(double)CLOCKS_PER_SEC;
 				i--;
@@ -121,18 +134,19 @@ int main(){
 			tempo=0;
 			while(i>0){
 				t1=clock();
-				InsercaoDireta(vetor,n);
+				InsercaoDireta(aux2,n);
 				t2=clock();
 				tempo+=((double)t2 - (double)t1)/(double)CLOCKS_PER_SEC;
 				i--;
 			}
 			printf("\n\nTempo Medio - Insercao Direta para vetor de tamanho %d = %.3e",n,tempo/5);
 			
-			
+
 		}
 		getchar();
 		printf("\n\nContinuar? (s/n): ");
 		scanf("%c",&opcao);
 	}while(opcao=='s'||opcao=='S');
+	
 	return 0;
 }

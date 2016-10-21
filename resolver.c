@@ -14,38 +14,40 @@ void imprime(char matriz[][tamanho],int tam){
     printf("\n");
 }
 
-void resolver(char matriz[][tamanho],char depression[][20],int tam){
-	int i,j,k=0,l,quarenta=39,tamanho_palavra;
+void resolver(char matriz[][tamanho],char fonte[][20],int tam){
+	int i,j,k=0,l,atual,tamanho_palavra;
 	for(i=0;i<tam;i++){
 		for(j=0;j<tam;j++){
-			quarenta=39;
-			while(quarenta>=0){
-				if(matriz[i][j]==depression[quarenta][0]||matriz[i][j]==depression[quarenta][0]-32){
-					for(tamanho_palavra=0;depression[quarenta][tamanho_palavra]!=' ';tamanho_palavra++){}
+			atual=39;
+			while(atual>=0){ //Testa a posição atual da matriz com a primeira letra de todas as palavras a serem encontradas
+				if(matriz[i][j]==fonte[atual][0]||matriz[i][j]==fonte[atual][0]-32){
+					for(tamanho_palavra=0;fonte[atual][tamanho_palavra]!=' ';tamanho_palavra++){}
 					int tamanho=tamanho_palavra;
-					if(j+tamanho<=tam){
-							if(matriz[i][j+1]==depression[quarenta][1]||matriz[i][j+1]==depression[quarenta][1]-32){
-								for(l=0;l<tamanho;l++){
-									if(matriz[i][j+l]==depression[quarenta][l]||(matriz[i][j+l]+32)==depression[quarenta][l]){
+					if(j+tamanho<=tam){//Leste. Compara se o tamanho da palavra não ultrapassa os limites da matriz
+							if(matriz[i][j+1]==fonte[atual][1]||matriz[i][j+1]==fonte[atual][1]-32){
+								for(l=0;l<tamanho;l++){//Testa maiusculas e minusculas
+									if(matriz[i][j+l]==fonte[atual][l]||(matriz[i][j+l]+32)==fonte[atual][l]){
 										tamanho_palavra--;
 									}
 									else
 										break;
 							}
-							if(tamanho_palavra==0){
-								for (l = 0; l < tamanho; l++){
+							if(tamanho_palavra==0){//Se a palavra foi encontrada
+								for (l = 0; l < tamanho; l++){//passa suas letras para maiusculo
 									if(matriz[i][l+j]>95)
 										matriz[i][l+j]-=32;
 								}
 							}
 						}
 					}
-					if(j-(tamanho-1)>=0){
+
+					//Os testes abaixo sao exatamente iguais aos de cima, musando apenas o sentido de busca
+					if(j-(tamanho-1)>=0){//Oeste
 						tamanho_palavra=tamanho;
-						if(matriz[i][j-1]==depression[quarenta][1]||matriz[i][j-1]==depression[quarenta][1]-32){
+						if(matriz[i][j-1]==fonte[atual][1]||matriz[i][j-1]==fonte[atual][1]-32){
 								for(l=0;l<tamanho;l++){
 								
-									if(matriz[i][j-l]==depression[quarenta][l]||matriz[i][j-l]==depression[quarenta][l]-32){
+									if(matriz[i][j-l]==fonte[atual][l]||matriz[i][j-l]==fonte[atual][l]-32){
 										tamanho_palavra--;
 									}
 									else
@@ -62,12 +64,12 @@ void resolver(char matriz[][tamanho],char depression[][20],int tam){
 
 					}
 					
-					if(i+tamanho<=tam){
+					if(i+tamanho<=tam){//Sul
 						tamanho_palavra=tamanho;
-						if(matriz[i+1][j]==depression[quarenta][1]||matriz[i+1][j]==depression[quarenta][1]-32){
+						if(matriz[i+1][j]==fonte[atual][1]||matriz[i+1][j]==fonte[atual][1]-32){
 								for(l=0;l<tamanho;l++){
 								
-									if(matriz[i+l][j]==depression[quarenta][l]||matriz[i+l][j]==depression[quarenta][l]-32){
+									if(matriz[i+l][j]==fonte[atual][l]||matriz[i+l][j]==fonte[atual][l]-32){
 										tamanho_palavra--;
 									}
 									else
@@ -83,12 +85,12 @@ void resolver(char matriz[][tamanho],char depression[][20],int tam){
 
 					}
 					
-					if(i-(tamanho-1)>=0){
+					if(i-(tamanho-1)>=0){//Norte
 						tamanho_palavra=tamanho;
-						if(matriz[i-1][j]==depression[quarenta][1]||matriz[i-1][j]==depression[quarenta][1]-32){
+						if(matriz[i-1][j]==fonte[atual][1]||matriz[i-1][j]==fonte[atual][1]-32){
 								for(l=0;l<tamanho;l++){
 								
-									if(matriz[i-l][j]==depression[quarenta][l]||matriz[i-l][j]==depression[quarenta][l]-32){
+									if(matriz[i-l][j]==fonte[atual][l]||matriz[i-l][j]==fonte[atual][l]-32){
 										tamanho_palavra--;
 									}
 									else
@@ -104,11 +106,11 @@ void resolver(char matriz[][tamanho],char depression[][20],int tam){
 
 					}
 
-					if(j+tamanho<=tam&&i+tamanho<=tam){
+					if(j+tamanho<=tam&&i+tamanho<=tam){//Sudeste
 						tamanho_palavra=tamanho;
-						if(matriz[i+1][j+1]==depression[quarenta][1]||(matriz[i+1][j+1]+32)==depression[quarenta][1]){
+						if(matriz[i+1][j+1]==fonte[atual][1]||(matriz[i+1][j+1]+32)==fonte[atual][1]){
 								for(l=0;l<tamanho;l++){
-									if(matriz[i+l][j+l]==depression[quarenta][l]||(matriz[i+l][j+l]+32)==depression[quarenta][l]){
+									if(matriz[i+l][j+l]==fonte[atual][l]||(matriz[i+l][j+l]+32)==fonte[atual][l]){
 										tamanho_palavra--;
 									}
 									else
@@ -124,11 +126,11 @@ void resolver(char matriz[][tamanho],char depression[][20],int tam){
 
 					}
 
-					if(j-(tamanho-1)>=0&&i-(tamanho-1)>=0){
+					if(j-(tamanho-1)>=0&&i-(tamanho-1)>=0){//Noroeste
 						tamanho_palavra=tamanho;
-						if(matriz[i-1][j-1]==depression[quarenta][1]||(matriz[i-1][j-1]+32)==depression[quarenta][1]){
+						if(matriz[i-1][j-1]==fonte[atual][1]||(matriz[i-1][j-1]+32)==fonte[atual][1]){
 								for(l=0;l<tamanho;l++){
-									if(matriz[i-l][j-l]==depression[quarenta][l]||(matriz[i-l][j-l]+32)==depression[quarenta][l]){
+									if(matriz[i-l][j-l]==fonte[atual][l]||(matriz[i-l][j-l]+32)==fonte[atual][l]){
 										tamanho_palavra--;
 									}
 									else
@@ -144,11 +146,11 @@ void resolver(char matriz[][tamanho],char depression[][20],int tam){
 
 					}
 
-					if(j+tamanho<=tam&&i-(tamanho-1)>=0){
+					if(j+tamanho<=tam&&i-(tamanho-1)>=0){//Nordeste
 						tamanho_palavra=tamanho;
-						if(matriz[i-1][j+1]==depression[quarenta][1]||(matriz[i-1][j+1]+32)==depression[quarenta][1]){
+						if(matriz[i-1][j+1]==fonte[atual][1]||(matriz[i-1][j+1]+32)==fonte[atual][1]){
 								for(l=0;l<tamanho;l++){
-									if(matriz[i-l][j+l]==depression[quarenta][l]||(matriz[i-l][j+l]+32)==depression[quarenta][l]){
+									if(matriz[i-l][j+l]==fonte[atual][l]||(matriz[i-l][j+l]+32)==fonte[atual][l]){
 										tamanho_palavra--;
 									}
 									else
@@ -164,11 +166,11 @@ void resolver(char matriz[][tamanho],char depression[][20],int tam){
 
 					}
 					
-					if(j-(tamanho-1)>=0&&i+tamanho<=tam){
+					if(j-(tamanho-1)>=0&&i+tamanho<=tam){//Sudoeste
 						tamanho_palavra=tamanho;
-						if(matriz[i+1][j-1]==depression[quarenta][1]||(matriz[i+1][j-1]+32)==depression[quarenta][1]){
+						if(matriz[i+1][j-1]==fonte[atual][1]||(matriz[i+1][j-1]+32)==fonte[atual][1]){
 								for(l=0;l<tamanho;l++){
-									if(matriz[i+l][j-l]==depression[quarenta][l]||(matriz[i+l][j-l]+32)==depression[quarenta][l]){
+									if(matriz[i+l][j-l]==fonte[atual][l]||(matriz[i+l][j-l]+32)==fonte[atual][l]){
 										tamanho_palavra--;
 									}
 									else
@@ -184,7 +186,7 @@ void resolver(char matriz[][tamanho],char depression[][20],int tam){
 
 					}
 				}
-				quarenta--;
+				atual--;
 			}
 		}
 	}
@@ -197,20 +199,21 @@ void resolver(char matriz[][tamanho],char depression[][20],int tam){
 
 int main(int idx){
 	FILE * arq=fopen("caça-palavras.txt","r");
+	if(arq==NULL) exit(0);
 	FILE *arquivo;
 	char c,op;
 	int i,j;
-	while(1){
+	while(1){//Descobre se a matriz e 15x15 ou 20x20
 		fscanf(arq,"%c",&c);
 		if(c=='\n') break;
 		tamanho++;
 	}
 
 	printf("\n%d\n",tamanho);
-	
+
 	char matriz[tamanho][tamanho];
 	fseek(arq,0,SEEK_SET);
-    for ( i = 0; i < tamanho; i++){
+    for ( i = 0; i < tamanho; i++){//Transfere o conteudo do arquivo para a matriz
     	for (j = 0; j< tamanho;j++){
     		fscanf(arq,"%c",&c);
     		if(c!='\n')
@@ -220,9 +223,9 @@ int main(int idx){
     		}
     	}
     }
-    char depression[40][20];
+    char fonte[40][20];
     do{
-    printf("1-Fruits\n2-Animals\nEscolha a option: ");
+    printf("1-Fruits\n2-Animals\nEscolha a opcao: ");
     scanf("%c",&op);
     printf("\n");
 
@@ -234,9 +237,10 @@ int main(int idx){
   	else{
     	arquivo = fopen("animals.txt","r");
   	}
+  	if(arquivo==NULL) exit(0);
   	for(i=0;i<40;i++){
     	for(j=0;j<20;j++){
-      	depression[i][j]=' ';
+      	fonte[i][j]=' ';
     	}
   	}
   	for(i=0;i<40;i++){
@@ -244,14 +248,14 @@ int main(int idx){
       		fscanf(arquivo,"%c",&c);
       		if(c=='\n'||feof(arquivo))
         		break;
-      		depression[i][j]=c;
+      		fonte[i][j]=c;
     	}
     	if(feof(arquivo))
       	break;
     }
 
     imprime(matriz,tamanho);
-    resolver(matriz,depression,tamanho);
+    resolver(matriz,fonte,tamanho);
     imprime(matriz,tamanho);
     return 0;
 }
