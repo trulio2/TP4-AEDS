@@ -215,7 +215,9 @@ int main(int idx){
 	fseek(arq,0,SEEK_SET);
     for ( i = 0; i < tamanho; i++){//Transfere o conteudo do arquivo para a matriz
     	for (j = 0; j< tamanho;j++){
-    		fscanf(arq,"%c",&c);
+    		do{
+    			fscanf(arq,"%c",&c);
+    		}while(c=='.'||c==' '||c=='-');
     		if(c!='\n')
     			matriz[i][j]=c;
     		else {
